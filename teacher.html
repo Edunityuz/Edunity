@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edunity — Teacher</title>
+<style>
+  body{
+    font-family: Arial;
+    background:#070A12;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+  }
+  .card{
+    width:520px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:24px;
+    border-radius:18px;
+  }
+  input, textarea{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+    margin-bottom:12px;
+  }
+  button{
+    padding:12px 16px;
+    font-size:16px;
+    border:none;
+    border-radius:12px;
+    background:#2563EB;
+    color:white;
+    cursor:pointer;
+    font-weight:700;
+    width:100%;
+  }
+  .hint{color:rgba(255,255,255,.7);font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Create a Quiz (Demo)</h2>
+  <input id="title" placeholder="Quiz title (e.g., Past Simple)">
+  <textarea id="q" rows="4" placeholder="Question (e.g., I ___ to school yesterday.)"></textarea>
+  <input id="a" placeholder="Option A">
+  <input id="b" placeholder="Option B">
+  <input id="c" placeholder="Option C">
+  <input id="d" placeholder="Option D">
+  <input id="correct" placeholder="Correct option (A/B/C/D)">
+
+  <button onclick="makePin()">Start Game (Generate PIN)</button>
+  <div class="hint" id="out"></div>
+</div>
+
+<script>
+function makePin(){
+  const pin = Math.floor(100000 + Math.random()*900000);
+  document.getElementById("out").innerHTML =
+    "✅ Demo PIN: <b>" + pin + "</b><br>Next: students will join from <b>play.html</b>";
+}
+</script>
+
+</body>
+</html>
