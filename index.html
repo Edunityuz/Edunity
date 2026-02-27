@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edunity</title>
+  <style>
+    :root{
+      --blue:#2563EB;
+      --purple:#7C3AED;
+      --amber:#F59E0B;
+      --bg:#070A12;
+      --card: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 20%, rgba(37,99,235,.45), transparent 60%),
+        radial-gradient(900px 500px at 80% 30%, rgba(124,58,237,.45), transparent 60%),
+        radial-gradient(700px 420px at 60% 90%, rgba(245,158,11,.22), transparent 55%),
+        linear-gradient(180deg, #05060B, var(--bg));
+      overflow-x:hidden;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 20px 60px;
+    }
+
+    /* Top bar */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: 0 18px 50px rgba(37,99,235,.25), 0 10px 30px rgba(124,58,237,.18);
+      position:relative;
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .logo:before{
+      content:"";
+      position:absolute;
+      left:17px; top:13px;
+      width:0;height:0;
+      border-top:9px solid transparent;
+      border-bottom:9px solid transparent;
+      border-left:14px solid rgba(255,255,255,.95);
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.25));
+    }
+
+    .brand h1{
+      font-size:20px;
+      letter-spacing:.4px;
+      margin:0;
+      font-weight:800;
+    }
+    .tag{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .toggle{
+      display:flex; gap:6px;
+    }
+    .toggle button{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:7px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:12px;
+    }
+    .toggle button.active{
+      background: linear-gradient(135deg, rgba(37,99,235,.7), rgba(124,58,237,.7));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 12px 30px rgba(37,99,235,.22);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top:40px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .heroCard{
+      padding:34px 28px;
+      border-radius:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
+    }
+    .heroCard:after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(500px 220px at 25% 10%, rgba(37,99,235,.35), transparent 60%),
+                  radial-gradient(450px 220px at 80% 0%, rgba(124,58,237,.30), transparent 60%);
+      pointer-events:none;
+    }
+    .heroInner{ position:relative; z-index:1; }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(245,158,11,.12);
+      border:1px solid rgba(245,158,11,.22);
+      color:rgba(255,255,255,.9);
+      font-weight:700;
+      font-size:13px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--amber);
+      box-shadow: 0 0 0 6px rgba(245,158,11,.18);
+    }
+
+    .headline{
+      margin:16px 0 10px;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.03;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+    .headline span{
+      background: linear-gradient(135deg, #ffffff, rgba(255,255,255,.72));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size: 18px;
+      line-height:1.6;
+      max-width:56ch;
+    }
+
+    .ctaRow{
+      margin-top:22px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .btn{
+      cursor:pointer;
+      border: none;
+      padding:14px 18px;
+      border-radius:16px;
+      font-weight:900;
+      font-size:14px;
+      letter-spacing:.2px;
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btnPrimary{
+      color:#061022;
+      background: linear-gradient(135deg, rgba(245,158,11,1), rgba(245,158,11,.78));
+      box-shadow: 0 18px 40px rgba(245,158,11,.20);
+    }
+    .btnPrimary:hover{ transform: translateY(-1px); }
+
+    .btnGhost{
+      color:var(--text);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+    }
+    .btnGhost:hover{ transform: translateY(-1px); opacity:.95; }
+
+    .mini{
+      margin-top:18px;
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,.70);
+      font-size:13px;
+    }
+    .mini b{ color:rgba(255,255,255,.92); }
+
+    /* Side panel */
+    .side{
+      padding:26px 22px;
+      border-radius:28px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+    }
+    .side h3{
+      margin:0 0 12px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .steps{
+      display:grid;
+      gap:12px;
+    }
+    .step{
+      padding:14px 14px;
+      border-radius:18px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .num{
+      width:28px; height:28px; border-radius:10px;
+      background: linear-gradient(135deg, rgba(37,99,235,.8), rgba(124,58,237,.8));
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900;
+      font-size:13px;
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .step p{ margin:0; color:var(--muted); font-size:13px; line-height:1.5; }
+    .step p b{ color:rgba(255,255,255,.92); }
+
+    /* Footer */
+    .footer{
+      margin-top:26px;
+      text-align:center;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+    }
+
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Edunity</h1>
+          <div class="tag">Real-time quizzes for schools</div>
+        </div>
+      </div>
+
+      <div class="pill">
+        <span>Language:</span>
+        <div class="toggle">
+          <button class="active">EN</button>
+          <button>UZ</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="heroCard">
+        <div class="heroInner">
+          <div class="kicker"><span class="dot"></span> MVP is loading…</div>
+
+          <div class="headline"><span>Learn. Play. Compete.</span><br/>Build classroom hype in minutes.</div>
+          <p class="sub">
+            Edunity is a fast quiz & competition platform for <b>any subject</b>.
+            Teachers create a quiz, students join with a PIN, and the leaderboard goes live.
+          </p>
+
+          <div class="ctaRow">
+            <button class="btn btnPrimary">Start Game <span>▶</span></button>
+            <button class="btn btnGhost">Teacher Login</button>
+          </div>
+
+          <div class="mini">
+            <span>⚡ <b>Real-time</b> leaderboard</span>
+            <span>🎯 <b>Any subject</b></span>
+            <span>📱 <b>Mobile-first</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="side">
+        <h3>How it works</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <p><b>Teacher</b> creates a quiz (fast, clean, no chaos).</p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <p><b>Students</b> join using a PIN and pick a nickname.</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <p><b>Play</b> live, earn points, watch the leaderboard.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; padding:14px; border-radius:18px; background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.10); color:rgba(255,255,255,.78); font-size:13px; line-height:1.55;">
+          <b style="color:rgba(255,255,255,.92);">Coming soon:</b> team battles, badges, certificates, and more.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© <span id="y"></span> Edunity — built for classrooms.</div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
